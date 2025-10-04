@@ -1,0 +1,32 @@
+db.fooditems.insertMany([{
+    name: "GOBI CHILLI",
+    price: 40,
+    image: "https://tse3.mm.bing.net/th/id/OIP.czPUJwkEb27XsV6cLvKhgAHaFj?pid=Api&P=0&h=180",
+    category: "Vegetarian",
+    defaultMeal: "lunch",
+    dailyStock: 50,
+  },
+  {
+    name: "CHICKEN GRAVY",
+    price: 80,
+    image: "https://tse2.mm.bing.net/th/id/OIP.53T-EbsSebwWqqmrRS1KygHaE8?pid=Api&P=0&h=180",
+    category: "Non-Vegetarian",
+    defaultMeal: "lunch",
+    dailyStock: 50,
+  },
+  {
+    name: "MUSHROOM MANCHURIAN",
+    price: 60,
+    image: "https://tse2.mm.bing.net/th/id/OIP.UhsmBxXpAZ6IJU_sGQODYgHaHa?pid=Api&P=0&h=180",
+    category: "Vegetarian",
+    defaultMeal: "dinner",
+    dailyStock: 50,
+  },
+  {
+    name: "OMELETTE",
+    price: 10,
+    image: "https://tse1.mm.bing.net/th/id/OIP.lP8SyISigcitxXSe0CtakwHaHa?pid=Api&P=0&h=180",
+    category: "Vegetarian",
+    defaultMeal: "breakfast",
+    dailyStock: 50,
+  }])
