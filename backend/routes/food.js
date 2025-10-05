@@ -4,6 +4,7 @@ import { DailyStock } from "../models/DailyStock.js";
 import Order from "../models/Order.js";
 import QRCode from "qrcode";
 import auth from "../middleware/auth.js";
+import User from "../models/User.js";
 const router = express.Router();
 
 router.get("/daily-menu", async (req, res) => {
@@ -57,8 +58,16 @@ router.get("/", async (req, res) => {
 
 router.post("/buy",auth, async (req, res) => {
   try {
-    const { itemId, meal, date } = req.body;
-    const userId = req.user.id; // Get userId from auth middleware
+    const { itemId, meal, date,amount } = req.body;
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+    // console.log(user.financial.balance,amount);
+    if (user.financial.balance < amount) {
+      return res.status(400).json({ error: "Insufficient balance" });
+    }
+    user.financial.balance -= amount;
+    // console.log(user.financial.balance);
+    await user.save();
     const item = await FoodItem.findById(itemId);
     if (!item) return res.status(404).json({ error: "Item not found" });
 
@@ -76,11 +85,13 @@ router.post("/buy",auth, async (req, res) => {
       userId,
       meal,
       date,
+      amount,
       qrCode: qrCodeData,
     });
-
-    // reduce stock
-    item.dailyStock -= 1;
+  //  console.log(item.dailyStock);
+   // reduce stock
+   item.dailyStock -= 1;
+  //  console.log(item.dailyStock);
     await item.save();
 
     res.json(order);
